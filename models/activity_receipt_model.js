@@ -13,6 +13,7 @@ const activityreceiptSchema = new Schema({
     price: Number,
     sum_price: Number,
     detail :String,
+    payDateTime:String,
     canceled : { type: Boolean, default: false },
 })
 
