@@ -82,11 +82,11 @@ router.get('/getrentcarpartner/:id',(req,res) => {
 })
 
 router.delete('/deleterentcarpartner/:id',(req,res) => {
-    rentcarpartner.findByIdAndDelete(req.params.id,(err,deleted) => {
+    rentcarcarinfo.findOneAndDelete({PartnerID:req.params.id},(err,deleted) => {
         if(err){
             console.log(err)
         } else {
-            rentcarcarinfo.findOneAndDelete({PartnerID:req.params.id},(err,infodeleted) => {
+            rentcarpartner.findByIdAndDelete(req.params.id , (err,infodeleted) => {
                 if(err){
                     console.log(err)
                 } else {
