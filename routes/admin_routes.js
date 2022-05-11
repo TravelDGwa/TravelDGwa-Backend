@@ -199,5 +199,65 @@ router.delete('/shuttleregister/reject/:id',(req,res) => {
     })
 })
 
+router.get('/getactivitypartner',(req,res) => {
+    activity.find({partner:true}).populate('usernameID').exec((err,foundPartner) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.json(foundPartner)
+        }
+    })
+})
+
+router.get('/getactivitypartner/:id',(req,res) => {
+    activity.findById(req.params.id).populate('usernameID').exec((err,foundPartner) => {
+        if(err){
+            console.log(err)
+        } else{
+            return res.json(foundPartner);
+        }
+    })
+})
+
+router.delete('/deleteactivitypartner/:id',(req,res) => {
+    activity.findByIdAndDelete(req.params.id,(err,deleted) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.status(200).json()
+        }
+    })
+})
+
+router.get('/getactivityregister',(req,res) => {
+    activity.find({partner:false}).populate('usernameID').exec((err,foundRegister) => {
+        if(err){
+            console.log(err)
+        } else{
+            return res.json(foundRegister);
+        }
+    })
+})
+
+router.put('/activityregister/approve/:id',(req,res) => {
+    activity.findByIdAndUpdate(req.params.id,{$set:{partner:true}},(err,approved) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.status(200).json()
+        }
+    })
+})
+
+router.delete('/activityregister/reject/:id',(req,res) => {
+    activity.findByIdAndDelete(req.params.id,(err,deleted) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.status(200).json()
+        }
+    })
+})
+
 
 module.exports = router
