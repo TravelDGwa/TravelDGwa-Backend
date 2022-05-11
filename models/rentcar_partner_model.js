@@ -46,7 +46,7 @@ const rentcarpartnerSchema = new Schema({
     ],
     opening_day: String,
     opening_time: String,
-    
+    partner: {type:Boolean , default:false},
     
     
 })

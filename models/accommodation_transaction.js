@@ -13,6 +13,7 @@ var accommTransactionSchema = mongoose.Schema({
     priceOfRoom : Number,
     numberOfDay : Number,
     totalPrice : Number,
+    payDateTime : String,
     canceled : { type: Boolean, default: false },
 })
 

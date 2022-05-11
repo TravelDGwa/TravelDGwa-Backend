@@ -3,6 +3,8 @@ const User = require('../models/user_model')
 const passport = require('passport')
 const router = express.Router()
 const rentcarpartner = require('../models/rentcar_partner_model')
+const rentcarcarinfo = require('../models/rentcar_carinfo_model')
+const airporttransferpartner = require('../models/airport_transfer_partner_model')
 
 router.post('/signin',(req,res,next) => {
     passport.authenticate('local', function(err, user, info) {
@@ -24,7 +26,6 @@ router.get('/getuser',(req,res) => {
         if(err){
             console.log(err)
         } else{
-            console.log(foundUser);
             return res.json(foundUser);
         }
     })
@@ -35,7 +36,6 @@ router.get('/getuser/:id',(req,res) => {
         if(err){
             console.log(err)
         } else{
-            console.log(foundUser);
             return res.json(foundUser);
         }
     })
@@ -46,8 +46,6 @@ router.delete('/deleteuser/:id',(req,res) => {
         if(err){
             console.log(err);
         } else {
-            console.log(deleted);
-            console.log('deleted');
             res.status(200).json()
         }
     })
@@ -64,18 +62,54 @@ router.post('/promote/:id',(req,res) => {
 })
 
 router.get('/getrentcarpartner',(req,res) => {
-    rentcarpartner.find().populate('usernameID').exec((err,foundPartner) => {
+    rentcarpartner.find({partner:true}).populate('usernameID').exec((err,foundPartner) => {
         if(err){
             console.log(err)
         } else{
-            console.log(foundPartner);
             return res.json(foundPartner);
         }
     })
 })
 
 router.get('/getrentcarpartner/:id',(req,res) => {
-    rentcarpartner.findById(req.params.id).populate('usernameID').exec((err,foundPartner) => {
+    rentcarcarinfo.find({PartnerID:req.params.id}).populate('PartnerID').exec((err,foundPartner) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.json(foundPartner)
+        }
+    })
+})
+
+router.delete('/deleterentcarpartner/:id',(req,res) => {
+    rentcarpartner.findByIdAndDelete(req.params.id,(err,deleted) => {
+        if(err){
+            console.log(err)
+        } else {
+            rentcarcarinfo.findOneAndDelete({PartnerID:req.params.id},(err,infodeleted) => {
+                if(err){
+                    console.log(err)
+                } else {
+                    return res.status(200).json()
+                }
+            })
+        }
+    })
+})
+
+router.get('/getshuttlepartner',(req,res) => {
+    airporttransferpartner.find({partner:true}).populate('usernameID').exec((err,foundPartner) => {
+        if(err){
+            console.log(err)
+        } else {
+            console.log(foundPartner)
+            return res.json(foundPartner)
+        }
+    })
+})
+
+router.get('/getshuttlepartner/:id',(req,res) => {
+    airporttransferpartner.findById(req.params.id).populate('usernameID').exec((err,foundPartner) => {
         if(err){
             console.log(err)
         } else{
@@ -85,15 +119,82 @@ router.get('/getrentcarpartner/:id',(req,res) => {
     })
 })
 
-router.get('/getadmin',(req,res) => {
-    User.find({role:'user'},(err,foundUser) => {
+router.delete('/deleteshuttlepartner/:id',(req,res) => {
+    airporttransferpartner.findByIdAndDelete(req.params.id,(err,deleted) => {
         if(err){
             console.log(err)
-        } else{
-            console.log(foundUser);
-            return res.json(foundUser);
+        } else {
+            console.log(deleted)
+            return res.status(200).json()
         }
     })
 })
+
+// router.get('/getactivitypartner',(req,res) => {
+    
+// })
+
+
+router.get('/getrentcarregister',(req,res) => {
+    rentcarpartner.find({partner:false}).populate('usernameID').exec((err,foundRegister) => {
+        if(err){
+            console.log(err)
+        } else{
+            return res.json(foundRegister);
+        }
+    })
+})
+
+router.put('/rentcarregister/approve/:id',(req,res) => {
+    rentcarpartner.findByIdAndUpdate(req.params.id,{$set:{partner:true}},(err,approved) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.status(200).json()
+        }
+    })
+})
+
+router.delete('/rentcarregister/reject/:id',(req,res) => {
+    rentcarpartner.findByIdAndDelete(req.params.id,(err,deleted) => {
+        if(err){
+            console.log(err)
+        } else {
+            console.log(deleted)
+            return res.status(200).json()
+        }
+    })
+})
+
+router.get('/getshuttleregister',(req,res) => {
+    airporttransferpartner.find({partner:false}).populate('usernameID').exec((err,foundRegister) => {
+        if(err){
+            console.log(err)
+        } else{
+            return res.json(foundRegister);
+        }
+    })
+})
+
+router.put('/shuttleregister/approve/:id',(req,res) => {
+    airporttransferpartner.findByIdAndUpdate(req.params.id,{$set:{partner:true}},(err,approved) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.status(200).json()
+        }
+    })
+})
+
+router.delete('/shuttleregister/reject/:id',(req,res) => {
+    airporttransferpartner.findByIdAndDelete(req.params.id,(err,deleted) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.status(200).json()
+        }
+    })
+})
+
 
 module.exports = router

@@ -13,6 +13,7 @@ const airporttransferreceiptSchema = new Schema({
     startdate: String,
     starttime: String,
     sum_price: String,
+    payDateTime: String,
     canceled : { type: Boolean, default: false },
 })
 

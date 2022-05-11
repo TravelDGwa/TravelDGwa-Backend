@@ -18,6 +18,7 @@ router.post('/' , (req,res) => {
     room : req.body.room,
     numberOfRoom : req.body.numberOfRoom,
     priceOfRoom : req.body.priceOfRoom,
+    payDateTime: new Date().toLocaleString(),
     totalPrice: req.body.totalPrice} , (err,createdTransaction) => {
         if(err) {
             console.log(err)
