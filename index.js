@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-const midwareFunctions = require('./middleware');
 
 const seedDB = require('./seeds');
 
@@ -71,7 +70,6 @@ app.use('/rentcar',require('./routes/rentcar_routes'))
 app.use('/activity',require('./routes/activity_routes'))
 app.use('/restaurant',require('./routes/restau_routes'))
 app.use('/attraction',require('./routes/attraction_routes'))
-// app.use('/admin',midwareFunctions.isAdmin,require('./routes/admin_routes'))
 app.use('/admin',require('./routes/admin_routes'))
 app.use('/blog',require('./routes/blog_routes'))
 app.use('/map',require('./routes/map_routes'))
