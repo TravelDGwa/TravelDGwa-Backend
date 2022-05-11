@@ -32,7 +32,11 @@ var activitySchema  = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+    partner: {
+        type: Boolean,
+        default: false
+    }
 })
 
 module.exports = mongoose.model('Activity',activitySchema)

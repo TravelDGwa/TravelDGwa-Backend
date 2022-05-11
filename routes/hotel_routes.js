@@ -78,6 +78,19 @@ router.get('/:id/room' , (req,res) => {
     })
 })
 
+router.get('/:id/getimage' , (req,res) => {
+    console.log('getimage');
+    var hotelname = req.params.id;
+    Hotel.find({name:hotelname }).exec((err,foundhotel) => {
+        if(err){
+            console.log(err)
+        } else {
+            res.json({rooms:foundhotel})
+            console.log(foundhotel)
+        }
+    })
+})
+
 router.get('/search/:word', middleware.isLoggedIn, (req,res) => {
     // console.log(res.locals.currentUser.email)
 

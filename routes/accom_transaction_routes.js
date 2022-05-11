@@ -2,10 +2,11 @@ const express  = require('express')
 const AccomTransaction = require('../models/accommodation_transaction')
 const jwt = require('jwt-simple')
 const secret = require('..').SecretText
-
+const Hotel = require('../models/hotel_model')
 const router = express.Router()
 
 router.post('/' , (req,res) => {
+    console.log(req.body.image)
     var token = req.headers.authorization.split(' ')[1]
     // we need to convert the string to JSON object first.
     var stringToken = JSON.parse(token)['token']
@@ -19,6 +20,7 @@ router.post('/' , (req,res) => {
     numberOfRoom : req.body.numberOfRoom,
     priceOfRoom : req.body.priceOfRoom,
     payDateTime: new Date().toLocaleString(),
+    image: req.body.image,
     totalPrice: req.body.totalPrice} , (err,createdTransaction) => {
         if(err) {
             console.log(err)

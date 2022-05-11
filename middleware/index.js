@@ -41,4 +41,19 @@ midwareFunctions.getUser = function(req) {
   return user
 }
 
+// midwareFunctions.isAdmin = (req, res, next) => {
+//   var token = req.headers.authorization.split(' ')[1]
+//   var stringToken = JSON.parse(token)['token']
+//   var user = jwt.decode(stringToken, secret)
+//   if(req.isAuthenticated()){
+//       if(user.role == "admin"){
+//           return next();
+//       } else{
+//           return res.status(401).json({success:false,message:'Invalid'})
+//       }
+//   } else {
+//       return res.status(401).json({success:false,message:'Invalid'})
+//   }
+// }
+
 module.exports = midwareFunctions;  
