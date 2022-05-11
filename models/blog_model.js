@@ -9,6 +9,11 @@ var blogSchema = mongoose.Schema({
     topic : String,
     location : String,
     desc: String,
+    image: [
+        {
+            type:String
+        }
+    ],
     comments : [
         {
             type: mongoose.Schema.Types.ObjectId,

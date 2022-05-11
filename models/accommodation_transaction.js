@@ -14,6 +14,7 @@ var accommTransactionSchema = mongoose.Schema({
     numberOfDay : Number,
     totalPrice : Number,
     payDateTime : String,
+    image: String,
     canceled : { type: Boolean, default: false },
 })
 

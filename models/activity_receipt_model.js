@@ -14,6 +14,7 @@ const activityreceiptSchema = new Schema({
     sum_price: Number,
     detail :String,
     payDateTime:String,
+    image: String,
     canceled : { type: Boolean, default: false },
 })
 

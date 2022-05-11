@@ -307,6 +307,7 @@ router.post('/save_transaction',async (req,res) =>  {
         sum_detail_pricetime: req.body.sum_detail_pricetime,
         sum_detail_pricelocation: req.body.sum_detail_pricelocation,
         total_price: req.body.total_price,
+        image: req.body.image,
         payDateTime:new Date().toLocaleString(), 
     })
     receipt.save()
