@@ -5,6 +5,7 @@ const router = express.Router()
 const rentcarpartner = require('../models/rentcar_partner_model')
 const rentcarcarinfo = require('../models/rentcar_carinfo_model')
 const airporttransferpartner = require('../models/airport_transfer_partner_model')
+const activity = require('../models/activity_model')
 
 router.post('/signin',(req,res,next) => {
     passport.authenticate('local', function(err, user, info) {
@@ -128,10 +129,6 @@ router.delete('/deleteshuttlepartner/:id',(req,res) => {
     })
 })
 
-// router.get('/getactivitypartner',(req,res) => {
-    
-// })
-
 
 router.get('/getrentcarregister',(req,res) => {
     rentcarpartner.find({partner:false}).populate('usernameID').exec((err,foundRegister) => {
@@ -191,6 +188,36 @@ router.put('/shuttleregister/approve/:id',(req,res) => {
 
 router.delete('/shuttleregister/reject/:id',(req,res) => {
     airporttransferpartner.findByIdAndDelete(req.params.id,(err,deleted) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.status(200).json()
+        }
+    })
+})
+
+router.get('/getactivityregister',(req,res) => {
+    activity.find({partner:false}).populate('usernameID').exec((err,foundRegister) => {
+        if(err){
+            console.log(err)
+        } else{
+            return res.json(foundRegister);
+        }
+    })
+})
+
+router.put('/activityregister/approve/:id',(req,res) => {
+    activity.findByIdAndUpdate(req.params.id,{$set:{partner:true}},(err,approved) => {
+        if(err){
+            console.log(err)
+        } else {
+            return res.status(200).json()
+        }
+    })
+})
+
+router.delete('/activityregister/reject/:id',(req,res) => {
+    activity.findByIdAndDelete(req.params.id,(err,deleted) => {
         if(err){
             console.log(err)
         } else {

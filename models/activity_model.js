@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 var activitySchema  = new mongoose.Schema({
+    usernameID : {
+        type :mongoose.Schema.Types.ObjectId,
+        ref : 'User'
+    },
     name : String,
     image :  [
         {
@@ -28,7 +32,11 @@ var activitySchema  = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+    partner: {
+        type: Boolean,
+        default: false
+    }
 })
 
 module.exports = mongoose.model('Activity',activitySchema)
