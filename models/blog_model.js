@@ -5,7 +5,11 @@ var blogSchema = mongoose.Schema({
         type :mongoose.Schema.Types.ObjectId,
         ref : 'User'
     },
-    image: String,
+    image: [
+        {
+            type:String
+        }
+    ],
     topic : String,
     location : String,
     desc: String,
