@@ -156,12 +156,17 @@ router.put('/rentcarregister/approve/:id',(req,res) => {
 })
 
 router.delete('/rentcarregister/reject/:id',(req,res) => {
-    rentcarpartner.findByIdAndDelete(req.params.id,(err,deleted) => {
+    rentcarcarinfo.findOneAndDelete({PartnerID:req.params.id},(err,deleted) => {
         if(err){
             console.log(err)
         } else {
-            console.log(deleted)
-            return res.status(200).json()
+            rentcarpartner.findByIdAndDelete(req.params.id , (err,infodeleted) => {
+                if(err){
+                    console.log(err)
+                } else {
+                    return res.status(200).json()
+                }
+            })
         }
     })
 })
