@@ -1,6 +1,5 @@
 const express  = require('express');
 const Hotel = require('../models/hotel_model')
-const Room = require('../models/room_model')
 const middleware = require('../middleware')
 const f = require('../functions')
 const User = require('../models/user_model')
@@ -32,39 +31,6 @@ const router = express.Router()
 //         }
 //     })
 // })
-
-router.post('/hotel',async (req,res) => { 
-    var token = req.headers.authorization.split(' ')[1]
-    // we need to convert the string to JSON object first.
-    var stringToken = JSON.parse(token)['token']
-    var decodedtoken = jwt.decode(stringToken, secret)
-    console.log('update_activity')  
-    // const infouser = await User.findById(req.body.username)
-    const activitypartner = await new activity({
-        usernameID: mongoose.Types.ObjectId(decodedtoken._id),
-        // price_extrapay: ,
-        // document_require: ,
-        // comment: ,
-        name: req.body.name[1],
-        location: req.body.name[2] + req.body.name[3] + req.body.name[4] + req.body.name[5] + req.body.name[6],
-        price: req.body.name[7],
-        star: req.body.name[8],
-        detail: req.body.name[9],
-        open_day: req.body.name[10] + "-" + req.body.name[11],
-        open_time: req.body.name[12] + "-" + req.body.name[13],
-        image: req.body.name[14],
-    })
-    for(i = 1;i<req.body.hilight.length;i++){
-        activitypartner.hilight.push(req.body.hilight[i])
-    }
-    for(i = 1;i<req.body.service.length;i++){
-        activitypartner.service.push(req.body.service[i])
-    }
-    // for(i = 1;i<4;i++){
-    //     updatepartner.image.push(req.body.image[i])
-    // }
-    activitypartner.save()
-})
 
 router.get('/:id/room' , (req,res) => {
     var hotelId = req.params.id;
