@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-const midwareFunctions = require('./middleware');
 
 const seedDB = require('./seeds');
 
