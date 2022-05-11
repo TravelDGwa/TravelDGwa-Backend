@@ -5,7 +5,6 @@ const router = express.Router()
 const rentcarpartner = require('../models/rentcar_partner_model')
 const rentcarcarinfo = require('../models/rentcar_carinfo_model')
 const airporttransferpartner = require('../models/airport_transfer_partner_model')
-const activity = require('../models/activity_model')
 
 router.post('/signin',(req,res,next) => {
     passport.authenticate('local', function(err, user, info) {
@@ -128,6 +127,10 @@ router.delete('/deleteshuttlepartner/:id',(req,res) => {
         }
     })
 })
+
+// router.get('/getactivitypartner',(req,res) => {
+    
+// })
 
 
 router.get('/getrentcarregister',(req,res) => {

@@ -46,7 +46,6 @@ router.post('/save_invoice',(req,res) => {
         startdate: req.body.startdate,
         starttime: req.body.starttime,
         sum_price: req.body.sum_price,
-        image: req.body.image,
         payDateTime: new Date().toLocaleString(),
     })
     infoinvoice.save()

@@ -5,15 +5,14 @@ var blogSchema = mongoose.Schema({
         type :mongoose.Schema.Types.ObjectId,
         ref : 'User'
     },
-    image: String,
-    topic : String,
-    location : String,
-    desc: String,
     image: [
         {
             type:String
         }
     ],
+    topic : String,
+    location : String,
+    desc: String,
     comments : [
         {
             type: mongoose.Schema.Types.ObjectId,
