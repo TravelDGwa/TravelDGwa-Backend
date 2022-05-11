@@ -102,7 +102,6 @@ router.get('/getshuttlepartner',(req,res) => {
         if(err){
             console.log(err)
         } else {
-            console.log(foundPartner)
             return res.json(foundPartner)
         }
     })
@@ -113,7 +112,6 @@ router.get('/getshuttlepartner/:id',(req,res) => {
         if(err){
             console.log(err)
         } else{
-            console.log(foundPartner);
             return res.json(foundPartner);
         }
     })
