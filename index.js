@@ -63,7 +63,7 @@ app.use(async function(req,res,next){
 app.use('/',require('./routes/user_routes'))
 app.use('/airport_transfer', require('./routes/airport_transfer_routes'))
 app.use('/hotel',require('./routes/hotel_routes'))
-app.use('/transaction',require('./routes/transaction_routes'))
+app.use('/transaction',require('./routes/accom_transaction_routes'))
 app.use('/booking',require('./routes/booking_routes'))
 app.use('/comment',require('./routes/comment_routes'))
 app.use('/rentcar',require('./routes/rentcar_routes'))
@@ -73,6 +73,7 @@ app.use('/attraction',require('./routes/attraction_routes'))
 app.use('/admin',require('./routes/admin_routes'))
 app.use('/blog',require('./routes/blog_routes'))
 app.use('/map',require('./routes/map_routes'))
+app.use('/admin/transaction',require('./routes/admin_transaction_routes'))
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
