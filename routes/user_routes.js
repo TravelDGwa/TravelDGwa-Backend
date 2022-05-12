@@ -9,9 +9,22 @@ const middleware = require('../middleware')
 
 const router = express.Router()
 
-router.get('/', (req,res) => {
+router.get('/userinfo', (req,res) => {
     
-    console.log('Hello')
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+        var token = req.headers.authorization.split(' ')[1]
+        var user = jwt.decode(token, secret)
+        User.findById(user._id,(err,foundUser) => {
+            if(err){
+                return res.json({success: false, msg: 'something worng'})
+            } else {
+                return res.json({foundUser:foundUser})
+            }
+        })
+    }
+    else {
+        return res.json({success: false, msg: 'No Headers'})
+    }
 })
 
 router.get('/getinfo', (req,res) => {
@@ -107,6 +120,20 @@ router.get('/favourite', middleware.isLoggedIn, (req,res) => {
             return console.log(err);
         }
     });
+})
+
+router.put('/editprofile',(req,res) => {
+    var token = req.headers.authorization.split(' ')[1]
+    // we need to convert the string to JSON object first.
+    var stringToken = JSON.parse(token)['token']
+    var user = jwt.decode(stringToken, secret)
+    User.findByIdAndUpdate(user._id,{$set:{realname:req.body.realname,surname:req.body.surname,phone:req.body.phone}}, (err,edited) => {
+        if(err){
+            return res.status(401).json(err)
+        } else {
+            return res.status(200).json()
+        }
+    })
 })
 
 module.exports = router
